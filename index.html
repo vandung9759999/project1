@@ -1,85 +1,70 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<!DOCTYPE html>
 <html>
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2575.4">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
-    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+  <meta charset="UTF-8">
+  <title>MockAPI Demo</title>
+  <style>
+    .user {
+      padding: 8px;
+      margin: 4px 0;
+      border-bottom: 1px solid #ccc;
+    }
   </style>
 </head>
 <body>
-<p class="p1">&lt;!DOCTYPE html&gt;</p>
-<p class="p1">&lt;html&gt;</p>
-<p class="p1">&lt;head&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;style&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.user {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding: 8px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin: 4px 0;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-bottom: 1px solid #ccc;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/style&gt;</p>
-<p class="p1">&lt;/head&gt;</p>
-<p class="p1">&lt;body&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;h2&gt;MockAPI Demo - Gửi và Hiển thị Dữ liệu Ngay&lt;/h2&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;input type="text" id="name" placeholder="Tên"&gt;</p>
-<p class="p1">&lt;input type="email" id="email" placeholder="Email"&gt;</p>
-<p class="p1">&lt;button onclick="sendData()"&gt;Gửi&lt;/button&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;h3&gt;Danh sách người dùng:&lt;/h3&gt;</p>
-<p class="p1">&lt;div id="result"&gt;Đang tải...&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;script&gt;</p>
-<p class="p1">const API_URL = "https://67ffa12bb72e9cfaf7254dce.mockapi.io/users";</p>
-<p class="p2"><br></p>
-<p class="p1">function createUserElement(user) {</p>
-<p class="p1"><span class="Apple-converted-space">  </span>return `&lt;div class="user"&gt;&lt;strong&gt;${user.name}&lt;/strong&gt; - ${user.email}&lt;/div&gt;`;</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">function sendData() {</p>
-<p class="p1"><span class="Apple-converted-space">  </span>const name = document.getElementById("name").value.trim();</p>
-<p class="p1"><span class="Apple-converted-space">  </span>const email = document.getElementById("email").value.trim();</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>if (!name || !email) {</p>
-<p class="p1"><span class="Apple-converted-space">    </span>alert("Vui lòng nhập tên và email!");</p>
-<p class="p1"><span class="Apple-converted-space">    </span>return;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>fetch(API_URL, {</p>
-<p class="p1"><span class="Apple-converted-space">    </span>method: "POST",</p>
-<p class="p1"><span class="Apple-converted-space">    </span>headers: { "Content-Type": "application/json" },</p>
-<p class="p1"><span class="Apple-converted-space">    </span>body: JSON.stringify({ name, email })</p>
-<p class="p1"><span class="Apple-converted-space">  </span>})</p>
-<p class="p1"><span class="Apple-converted-space">  </span>.then(res =&gt; res.json())</p>
-<p class="p1"><span class="Apple-converted-space">  </span>.then(data =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">    </span>document.getElementById("result").innerHTML += createUserElement(data);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>document.getElementById("name").value = "";</p>
-<p class="p1"><span class="Apple-converted-space">    </span>document.getElementById("email").value = "";</p>
-<p class="p1"><span class="Apple-converted-space">  </span>})</p>
-<p class="p1"><span class="Apple-converted-space">  </span>.catch(err =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">    </span>console.error("Lỗi khi gửi:", err);</p>
-<p class="p1"><span class="Apple-converted-space">  </span>});</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">function fetchData() {</p>
-<p class="p1"><span class="Apple-converted-space">  </span>fetch(API_URL)</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.then(res =&gt; res.json())</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.then(data =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>const html = data.map(createUserElement).join("");</p>
-<p class="p1"><span class="Apple-converted-space">      </span>document.getElementById("result").innerHTML = html;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>});</p>
-<p class="p1">}</p>
-<p class="p2"><br></p>
-<p class="p1">// Tải dữ liệu ban đầu</p>
-<p class="p1">fetchData();</p>
-<p class="p1">&lt;/script&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;/body&gt;</p>
-<p class="p1">&lt;/html&gt;</p>
+
+<h2>MockAPI Demo - Gửi và Hiển thị Dữ liệu Ngay</h2>
+
+<input type="text" id="name" placeholder="Tên">
+<input type="email" id="email" placeholder="Email">
+<button onclick="sendData()">Gửi</button>
+
+<h3>Danh sách người dùng:</h3>
+<div id="result">Đang tải...</div>
+
+<script>
+const API_URL = "https://67ffa12bb72e9cfaf7254dce.mockapi.io/users";
+
+function createUserElement(user) {
+  return `<div class="user"><strong>${user.name}</strong> - ${user.email}</div>`;
+}
+
+function sendData() {
+  const name = document.getElementById("name").value.trim();
+  const email = document.getElementById("email").value.trim();
+
+  if (!name || !email) {
+    alert("Vui lòng nhập tên và email!");
+    return;
+  }
+
+  fetch(API_URL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ name, email })
+  })
+  .then(res => res.json())
+  .then(data => {
+    document.getElementById("result").innerHTML += createUserElement(data);
+    document.getElementById("name").value = "";
+    document.getElementById("email").value = "";
+  })
+  .catch(err => {
+    console.error("Lỗi khi gửi:", err);
+  });
+}
+
+function fetchData() {
+  fetch(API_URL)
+    .then(res => res.json())
+    .then(data => {
+      const html = data.map(createUserElement).join("");
+      document.getElementById("result").innerHTML = html;
+    });
+}
+
+fetchData();
+</script>
+
 </body>
 </html>
